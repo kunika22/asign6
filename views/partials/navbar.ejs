@@ -1,0 +1,84 @@
+<nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <!-- Left-aligned navigation links -->
+        <ul class="flex space-x-4">
+            <li>
+                <a
+                    class="<%= (page === '/lego/addSet') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                    href="/lego/addSet"
+                >
+                    Add to Collection
+                </a>
+            </li>
+            <% if (session && session.user) { %>
+                <li>
+                    <a
+                        class="<%= (page === '/userHistory') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                        href="/userHistory"
+                    >
+                        User History
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+
+        <!-- Center logo -->
+        <a href="/" class="text-2xl font-bold text-white">Lego Collection</a>
+
+        <!-- Mobile menu toggle button -->
+        <button class="text-white md:hidden" id="navbar-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+
+        <!-- Right-aligned navigation links -->
+        <div id="navbar-links" class="hidden md:flex space-x-6 items-center">
+            <a
+                class="<%= (page === '/') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                href="/"
+            >
+                Home
+            </a>
+            <a
+                class="<%= (page === '/about') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                href="/about"
+            >
+                About
+            </a>
+            <a
+                class="<%= (page === '/lego/sets') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                href="/lego/sets"
+            >
+                View Collection
+            </a>
+
+            <% if (session && session.user) { %>
+                <!-- Display logout link if the user is logged in -->
+                <a href="/logout" class="text-white hover:text-gray-300">Logout</a>
+            <% } else { %>
+                <!-- Display login and register links if the user is not logged in -->
+                <a
+                    class="<%= (page === '/login') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                    href="/login"
+                >
+                    Login
+                </a>
+                <a
+                    class="<%= (page === '/register') ? 'active font-bold' : '' %> text-white hover:text-gray-300"
+                    href="/register"
+                >
+                    Register
+                </a>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Mobile menu script -->
+    <script>
+        document.getElementById("navbar-toggle").addEventListener("click", () => {
+            const links = document.getElementById("navbar-links");
+            links.classList.toggle("hidden");
+        });
+    </script>
+</nav>

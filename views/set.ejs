@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lego Set Details</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+
+<body class="bg-gray-100">
+
+  <%- include('partials/navbar', { page: '' }) %>
+
+  <section class="hero text-center bg-blue-500 text-white py-10">
+    <div class="hero-content">
+      <h1 class="text-4xl font-extrabold mb-4"><%= set.name %></h1>
+      <p class="text-lg">Explore detailed information about the Lego set below:</p>
+    </div>
+  </section>
+
+  <section class="container mx-auto mt-10 px-4">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+      <div class="flex flex-col md:flex-row items-center">
+        <img src="<%= set.img_url %>" alt="<%= set.name %>" class="w-full md:w-1/3 h-auto rounded-lg">
+        <div class="mt-6 md:mt-0 md:ml-10 text-left">
+          <p class="text-lg">
+            <strong>Name:</strong> <%= set.name %>
+          </p>
+          <p class="text-lg">
+            <strong>Theme:</strong>
+            <a href="/lego/sets?theme=<%= set.Theme ? set.Theme.name : '' %>" class="text-blue-500 hover:underline">
+              <%= set.Theme ? set.Theme.name : "No theme available" %>
+            </a>
+          </p>
+          <p class="text-lg">
+            <strong>Year:</strong> <%= set.year %>
+          </p>
+          <p class="text-lg">
+            <strong>Number of Parts:</strong> <%= set.num_parts %>
+          </p>
+        </div>
+      </div>
+
+      <% if (session && session.user) { %>
+        <div class="mt-6 flex justify-center">
+          <a href="/lego/editSet/<%= set.set_num %>" class="btn px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">Edit Set</a>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="mt-10 p-6 bg-gray-200 rounded-lg">
+      <div id="quote-section">
+        <p id="quote-content" class="text-lg italic"></p>
+        <p id="quote-author" class="text-right font-bold"></p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("https://quotable.io/random")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("quote-content").innerText = `"${data.content}"`;
+          document.getElementById("quote-author").innerText = `- ${data.author}`;
+        })
+        .catch((error) => console.error("Error fetching quote:", error));
+    });
+  </script>
+</body>
+
+</html>

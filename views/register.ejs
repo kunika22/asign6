@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <%- include('partials/navbar', { page: '/register' }) %>
+
+  <div class="hero bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="max-w-sm sm:max-w-md bg-white shadow-lg p-6 sm:p-8 rounded-lg mx-4">
+      <% if (successMessage) { %>
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m1-4a9 9 0 11-18 0a9 9 0 0118 0z" />
+          </svg>
+          <h1 class="text-4xl font-bold text-gray-800 mb-4">Registration Successful!</h1>
+          <p class="text-gray-600 mb-6"><%= successMessage %></p>
+          <a
+            href="/login"
+            class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition block text-center"
+          >
+            Proceed to Log in
+          </a>
+        </div>
+      <% } else { %>
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Register</h1>
+        <form action="/register" method="POST" class="space-y-6">
+          <div class="form-control">
+            <label class="block text-left mb-2 text-gray-700 font-semibold">User Name</label>
+            <input
+              type="text"
+              name="userName"
+              placeholder="Enter your username"
+              pattern="^[a-zA-Z0-9_-]{3,15}$"
+              title="Username must be 3-15 characters and contain only letters, numbers, underscores, or hyphens."
+              aria-label="Username"
+              required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring focus:ring-blue-300 focus:outline-none"
+            />
+          </div>
+          <div class="form-control">
+            <label class="block text-left mb-2 text-gray-700 font-semibold">Email Address</label>
+            <input
+              type="email"
+              name="email"
+    
